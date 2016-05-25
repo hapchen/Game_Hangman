@@ -4,7 +4,7 @@
 
 ###### The origins of Hangman are said to date back to Victorian times and the game itself has been a widely used tool in teaching and learning English for kids and foreigners. Now with a little twists by C#, we create this new version of game and we hope you enjoy it:)
 
-### HELP
+### Help
 ###### The rules are simple. The computer comes up with a secret word and you will make a guess about it. You have 8 chances and each time you can type in one letter to check if this letter is in the secret word. If you succeed in guessing all the letters in the word before using up 8 chances, you win. Otherwise, you lose.
 
 ### Credit
