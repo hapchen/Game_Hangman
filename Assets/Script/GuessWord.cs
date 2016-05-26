@@ -8,16 +8,17 @@ public class GuessWord : MonoBehaviour {
 	public int m_GuessTimeMax;
 	public int m_GuessTime = 0;
 	public TextManager m_TextManager;
+	public bool m_IsPlayerWin =false;
 
 	private List<string> m_LetterGuessed = new List<string>();
 
 	// Use this for initialization
 	void Start () {
+		m_TextManager.GuessTimeUpdate(m_GuessTimeMax.ToString()); // TODO: Transfer this method to GameManager;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	public int GetGuessCoinsLeft(){
+		return m_GuessTimeMax - m_GuessTime; 
 	}
 
 	public void TryWord (string inputText)
@@ -48,15 +49,17 @@ public class GuessWord : MonoBehaviour {
 
 			//Check player guess the whole word;
 			if (IsGuessRight(m_SecretWord)){
-				m_TextManager.SystemTextUpdate("-------------");
 				m_TextManager.SystemTextUpdate("You won!");
+
+				m_IsPlayerWin = true;
 			}
 			return;
 		}
 
 		//Player use one guess coin.
 		m_TextManager.SystemTextUpdate("Oops! The letter is not in my word: "+ guessWord);
-		m_GuessTime++;
+		m_GuessTime++;//TODO: Change to GameManager;
+		m_TextManager.GuessTimeUpdate(GetGuessCoinsLeft().ToString());
 
 		//Player uses all guess coins;
 		if (m_GuessTime == m_GuessTimeMax){
@@ -100,6 +103,10 @@ public class GuessWord : MonoBehaviour {
 	}
 
 	public void Reset(){// Reset the guessed word text;
+		m_IsPlayerWin = false;
+		m_GuessTime = 0;
+		m_LetterGuessed.Clear();
+		m_TextManager.GuessTimeUpdate(GetGuessCoinsLeft().ToString());
 		m_TextManager.ShowGuessedText(CompareGuessWord());
 	}
 }
